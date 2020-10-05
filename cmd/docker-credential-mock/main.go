@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/spf13/cobra"
+	"github.com/adrienaury/docker-credential-mock/internal"
+	"github.com/docker/docker-credential-helpers/credentials"
 )
 
 // Provisioned by ldflags
@@ -16,16 +17,10 @@ var (
 	builtBy   string
 )
 
-// rootCmd represents the base command when called without any subcommands
-var rootCmd = &cobra.Command{
-	Use:     "docker-credential-mock [action]",
-	Short:   "A docker-credential-helper that can be used as part of automated integration tests.",
-	Version: fmt.Sprintf("%v (commit=%v date=%v by=%v)", version, commit, buildDate, builtBy),
-}
-
 func main() {
-	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+	if len(os.Args) > 1 && os.Args[1] == "version" {
+		fmt.Printf("%v (commit=%v date=%v by=%v)\n", version, commit, buildDate, builtBy)
+		os.Exit(0)
 	}
+	credentials.Serve(internal.YAMLStorage{})
 }
