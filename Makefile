@@ -71,4 +71,4 @@ publish:  ## Publish binaries
 	docker-compose \
 	  -f .devcontainer/docker-compose.yml \
 	  -p docker-credential-mock_devcontainer \
-	  run goreleaser release
+	  run goreleaser --rm-dist release
