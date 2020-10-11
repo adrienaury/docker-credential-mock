@@ -36,7 +36,7 @@ func (h YAMLStorage) Add(creds *credentials.Credentials) error {
 	yml := YAMLCredentials{
 		ServerURL: creds.ServerURL,
 		Username:  creds.Username,
-		Secret:    creds.Secret,
+		Secret:    encryptSecret(creds.Secret),
 	}
 
 	added := false
@@ -95,7 +95,7 @@ func (h YAMLStorage) Get(serverURL string) (string, string, error) {
 
 	for _, credential := range store.CredentialsList {
 		if credential.ServerURL == serverURL {
-			return credential.Username, credential.Secret, nil
+			return credential.Username, decryptSecret(credential.Secret), nil
 		}
 	}
 	return "", "", nil
