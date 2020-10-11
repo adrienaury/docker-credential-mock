@@ -18,6 +18,10 @@ Types of changes
 
 Nothing in the backlog !
 
+## [0.2.0]
+
+- `Added` AES Encryption with salt if environment variable `DOCKER_CREDENTIAL_MOCK_PASSWORD` has a value
+
 ## [0.1.0]
 
 - `Added` Basic YAML credentials store in a file named `credentials.yaml` in the current directory
